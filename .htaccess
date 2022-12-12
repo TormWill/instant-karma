@@ -1,0 +1,4 @@
+RewriteEngine off
+RewriteCond %{HTTP_HOST} ^instant-karma.ddns.net:999$ [OR]
+RewriteCond %{HTTP_HOST} ^instant-karma.ddns.net:999$
+RewriteRule ^(.*)$ instant-karma.tk/$1 [R=301,L]
