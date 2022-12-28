@@ -26,23 +26,26 @@ if ($url == '/rankinghoe.php') {
     $port = '7794';
     $title = 'Survival Hell on Earth';
 }
-if ($url == '/rankingoriginalhoe.php') {
-    $sqldir = "C:\kf2server\Magicked Admin\kf2-magicked-admin-0.1.6\conf\IK_HoE_OriginalMaps.sqlite";
+if ($url == '/rankingendlesshard.php') {
+    $sqldir = "C:\kf2server\Magicked Admin\kf2-magicked-admin-0.1.6\conf\IK_EndlessHard.sqlite";
     $port = '7796';
-    $title = 'Original Maps / 20 Players HoE';
+    $title = 'Original Maps / 20 Players Endless Hard';
 }
+
 
 $pdo = new PDO('sqlite:' . $sqldir);
 
 $statementPlayers = $pdo->query("SELECT * FROM players ORDER BY players.kills DESC");
 $statementMaps = $pdo->query("SELECT * FROM maps ORDER BY maps.plays_endless DESC");
+$statementMapsSurvival = $pdo->query("SELECT * FROM maps ORDER BY maps.plays_survival DESC");
 // $statementVictory = $pdo->query("SELECT * FROM map_records ORDER BY map_records.game_victory DESC");
 
 $players = $statementPlayers->fetchAll(PDO::FETCH_ASSOC);
 $maps = $statementMaps->fetchAll(PDO::FETCH_ASSOC);
+$mapsSurvival = $statementMapsSurvival->fetchAll(PDO::FETCH_ASSOC);
 // $victory = $statementVictory->fetchAll(PDO::FETCH_ASSOC);
 
-include 'specialplayers.php';
+include 'includes/specialplayers.php';
 
 
 $text = '';
@@ -61,11 +64,12 @@ $apiKey = "589DB84DB38468F423C63C9196AC5C55"
 <div class="col-md-12">
     <center>
         <a href="ranking.php" class="btn btn-dark">Custom Maps / Fast Zed Spawn | Endless HoE</a>
-        <a href="rankingoriginalhoe.php" class="btn btn-dark">Original Maps / 20 Players HoE</a>
+        <a href="rankingendlesshard.php" class="btn btn-dark">Original Maps / 20 Players HoE</a>
     </center>
 </div>
 <?php echo '<center></br><a href="https://www.gametracker.com/server_info/instant-karma.ddns.net:' . $port . '" target="_blank"><img src="https://cache.gametracker.com/server_info/instant-karma.ddns.net:' . $port . '/b_560_95_1.png" border="0" width="560" height="95" alt="" /></a></center>' ?>
-<?php echo '</br><center><h1>Ranking: '.$title.'</h1></center>'; ?>
+<?php echo '</br><h1>Server: '.$title.'</h1>'; ?>
+<?php echo '<h5>Total Players: '.count($players).'</h5>'; ?>
 <div class="services_section_2">
     <div class="row">
         <div class="col-md-6">
@@ -155,7 +159,7 @@ $apiKey = "589DB84DB38468F423C63C9196AC5C55"
                         <tr>
                             <th scope="col">Map</th>
                             <th scope="col">Times played</th>
-                            <?php if ($url == '/ranking.php') {
+                            <?php if ($url == '/ranking.php' || $url == '/rankingendlesshard.php') {
                                 echo '<th scope="col">Highest wave</th>';
                             } // else { echo '<th scope="col">Victory</th>'; } 
                             ?>
@@ -173,8 +177,12 @@ $apiKey = "589DB84DB38468F423C63C9196AC5C55"
                             } else {
                                 echo "<th>" . $maps[$i]['title'] .  "</th>";
                             }
+                            if ($url == '/ranking.php' || $url == '/rankingendlesshard.php') {
                             echo "<th>" . $maps[$i]['plays_endless'] . "</th>";
-                            if ($url == '/ranking.php') {
+                            } else {
+                                echo "<th>" . $mapsSurvival[$i]['plays_survival'] . "</th>";
+                            }
+                            if ($url == '/ranking.php' || $url == '/rankingendlesshard.php') {
                                 echo "<th>" . $maps[$i]['highest_wave'] . "</th>";
                             } // else { echo "<th>" . $victory[$i]['game_victory'] . "</th>"; }
                             echo "</tr>";

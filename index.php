@@ -86,6 +86,7 @@
                   <div class="container">
                      <h1 class="banner_taital">Killing Floor 2 Servers</h1>
                      <p class="banner_text">Killing Floor 2 - Servidores hospedados no Brasil, baixa latência, suporte 24/7.</br>Servidores custom de até 50 players, e servidores vanilla de 6 players.</p>
+                     <div class="read_bt"><a href="servers.php">Alugue seu proprio servidor!</a></div>
                      <div class="read_bt"><a href="servers.php">Ver servidores</a></div>
                   </div>
                </div>

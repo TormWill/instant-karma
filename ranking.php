@@ -44,7 +44,7 @@
    <div class="services_section layout_padding">
       <div class="container">
          <h1 class="services_taital">Ranking</h1>
-         <?php include 'rankingtable.php'; ?>
+         <?php include 'includes/rankingtable.php'; ?>
       </div>
    </div>
    <!-- services section end -->
